@@ -8,13 +8,15 @@ class varnish {
   service { varnish:
     enable  => true,
     ensure  => running,
-    require => Package["varnish"]
+    require => Package["varnish"],
   }
   
   file { "/etc/varnish/default.vcl":
-    owner  => root,
-    group  => root,
-    mode   => 0444,
-    source => "/srv/www/party/varnish/default.vcl",
+    owner   => root,
+    group   => root,
+    mode    => 0444,
+    source  => "/srv/www/party/varnish/default.vcl",
+    require => Package["varnish"],
+    notify  => Service["varnish"],
   }
 }
