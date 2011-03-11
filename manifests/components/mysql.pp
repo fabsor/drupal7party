@@ -11,7 +11,7 @@ class mysql {
     subscribe => Package[mysql-server],
   }
   exec { "create-database":
-    command => "/usr/bin/mysqladmin create drupal7"
-
+    command => "/usr/bin/mysqladmin create drupal7",
+    unless  => "/bin/echo 'show databases;' | /usr/bin/mysql -uroot | /bin/grep -E '^drupal7$'"
   }
 }
